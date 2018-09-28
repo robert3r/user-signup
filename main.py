@@ -50,8 +50,10 @@ def validate_password():
         password = '' 
         username = username
         email = email    
-    if  email != "":
-        if len(email) < 3 or len(email) > 20 or not any(char in special for char in email):
+    """ if  email != "":
+        if len(email) < 3 or len(email) > 20 or not any(char in special for char in email) """
+    if len(email) < 6:
+        if not re.match('\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b', email)!= None:
             email_error = 'That is not a valid email'
             username = username
             password = ''
