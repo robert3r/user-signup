@@ -34,22 +34,25 @@ def validate_password():
     if len(username) < 3 or len(username) > 20 or username == "" or any(char in space for char in username):
         username_error = 'That is not a valid username'
         username = ''
-    if len(password) < 3 or len(password) > 20 or password == "":
+    """ if len(password) < 3 or len(password) > 20 or password == "":
         password_error = 'That is not a valid password'
         password = '' 
         username = username
-        email = email
+        email = email """
+    if password == "" or not re.match(r'[A-Za-z0-9@#$%^&+=]{8,}', password):
+        password_error = 'Type 8 char including at least one number, special char, capital and lower letter.'
+        password = '' 
+        username = username
+        email = email     
     if verify != password or verify == "":
         verify_error = 'Passwords do not match'
         username = username
         password = ''
         verify = ''
         email = email
-    if not re.match(r'[A-Za-z0-9@#$%^&+=]{8,}', password):
-        password_error = 'Type 8 char including at least one number, special char, capital and lower letter.'
-        password = '' 
-        username = username
-        email = email    
+
+    
+          
     """ if  email != "":
         if len(email) < 3 or len(email) > 20 or not any(char in special for char in email) """
     if email != "" and len(email) < 6 or len(email) > 20:
