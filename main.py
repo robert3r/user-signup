@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, url_for
 import cgi
 import re
 
@@ -7,16 +7,15 @@ app = Flask(__name__)
 app.config['DEBUG'] = True      # displays runtime errors in the browser, too
 
 
-@app.route('/welcome', methods=['POST'])
+@app.route('/welcome', methods=['GET'])
 def welcome():
-    user = request.form['username']
+    user = request.args.get('username')
     return render_template('welcome.html', username = user)
 
 @app.route('/', methods=['POST'])
 def validate_password():
 
     space = [' ']
-    special = ['.','@']
 
     username = request.form['username']
     password = request.form['password']
@@ -60,7 +59,8 @@ def validate_password():
 
 
     if not username_error and not password_error and not verify_error and not email_error:
-        return render_template('welcome.html', title = "Welcome", username = username)
+        # return render_template('welcome.html', title = "Welcome", username = username)
+        return redirect( 'welcome?username={}'.format(username) )
     else:
         return render_template('register.html',title="Signup", username = username, email = email, username_error = username_error, password_error = password_error, verify_error = verify_error, email_error = email_error)
   
